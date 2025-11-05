@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>404 • ATLAS Development</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="https://i.imgur.com/Z2VYAH4.png" />
+  <link rel="icon" href="https://i.imgur.com/Z2VYAH4.png" sizes="64x64" />
   <meta name="color-scheme" content="dark light" />
   <style>
     :root{
@@ -18,8 +18,8 @@
       display:grid; place-items:center; padding:24px;
     }
     .wrap{width:min(720px,100%); text-align:center}
-    .brand{display:flex; gap:12px; align-items:center; justify-content:center; margin-bottom:12px}
-    .brand img{width:32px; height:32px}
+  .brand{display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center; margin-bottom:12px}
+  .brand img{width:64px; height:64px; display:block}
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)), var(--card);
       border:1px solid var(--border); border-radius:14px; padding:28px 22px; box-shadow:0 10px 30px rgba(0,0,0,.35)
@@ -54,7 +54,7 @@
         <p>The resource you requested does not exist or has moved.</p>
         <div class="actions">
           <a class="btn primary" href="/" target="_top">Go home</a>
-          <a class="btn" href="" onclick="location.reload(); return false;">Retry</a>
+          <button class="btn" type="button" onclick="location.reload()">Retry</button>
           <a class="btn" href="https://discord.gg/RnJdvYeudX" target="_blank" rel="noopener">Support</a>
         </div>
       </section>

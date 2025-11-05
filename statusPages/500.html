@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>500 • ATLAS Development</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="https://i.imgur.com/Z2VYAH4.png" />
+  <link rel="icon" href="https://i.imgur.com/Z2VYAH4.png" sizes="64x64" />
   <meta name="color-scheme" content="dark light" />
   <style>
     :root{--bg:#0b1020; --card:#0f162b; --text:#eaf1ff; --muted:#9fb3d9; --accent:#5aa3ff; --accent-2:#89d0ff; --border:#1c2747}
@@ -12,8 +12,8 @@
     body{margin:0; background:radial-gradient(1200px 800px at 80% -10%, #1a2446 0%, #0b1020 60%), var(--bg);
       color:var(--text); font:14px/1.5 system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif; display:grid; place-items:center; padding:24px}
     .wrap{width:min(720px,100%); text-align:center}
-    .brand{display:flex; gap:12px; align-items:center; justify-content:center; margin-bottom:12px}
-    .brand img{width:32px; height:32px}
+  .brand{display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center; margin-bottom:12px}
+  .brand img{width:64px; height:64px; display:block}
     .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)), var(--card);
       border:1px solid var(--border); border-radius:14px; padding:28px 22px; box-shadow:0 10px 30px rgba(0,0,0,.35)}
     h1{margin:6px 0 8px; font-size:28px}
@@ -31,11 +31,11 @@
       <img src="https://i.imgur.com/Z2VYAH4.png" alt="ATLAS logo" />
       <strong>ATLAS Development</strong>
     </div>
-    <div class="card">
+      <div class="card">
       <h1>500 · Internal Server Error</h1>
       <p>We log these automatically. If this blocks you, open a ticket with the Request ID.</p>
       <div class="actions">
-        <a class="btn primary" href="" onclick="location.reload(); return false;">Retry</a>
+        <button class="btn primary" type="button" onclick="location.reload()">Retry</button>
         <a class="btn" href="/" target="_top">Go home</a>
         <a class="btn" href="https://discord.gg/RnJdvYeudX" target="_blank" rel="noopener">Support</a>
       </div>
