@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>404 • ATLAS Development</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="https://i.imgur.com/Z2VYAH4.png" />
+  <meta name="color-scheme" content="dark light" />
+  <style>
+    :root{
+      --bg:#0b1020; --card:#0f162b; --text:#eaf1ff; --muted:#9fb3d9;
+      --accent:#5aa3ff; --accent-2:#89d0ff; --warn:#ffcc66; --border:#1c2747;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:radial-gradient(1200px 800px at 20% -10%, #162243 0%, #0b1020 60%), var(--bg);
+      color:var(--text); font:14px/1.5 system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      display:grid; place-items:center; padding:24px;
+    }
+    .wrap{width:min(720px, 100%); text-align:center}
+    .brand{display:flex; gap:12px; align-items:center; justify-content:center; margin-bottom:12px}
+    .brand img{width:32px; height:32px}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)), var(--card);
+      border:1px solid var(--border); border-radius:14px; padding:28px 22px; box-shadow:0 10px 30px rgba(0,0,0,.35)
+    }
+    h1{margin:6px 0 8px; font-size:28px; letter-spacing:.3px}
+    p{margin:8px 0; color:var(--muted)}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12px}
+    .actions{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:18px}
+    .btn{
+      padding:10px 14px; border-radius:10px; border:1px solid var(--border);
+      background:#121a33; color:var(--text); text-decoration:none;
+    }
+    .btn:hover{border-color:#2b3c73}
+    .btn.primary{background:linear-gradient(180deg, var(--accent), var(--accent-2)); color:#081122; font-weight:600; border:none}
+    footer{margin-top:14px; font-size:12px; color:#7f95c7}
+    .grid{display:grid; grid-template-columns:1fr; gap:14px}
+    @media (min-width:520px){ .grid{grid-template-columns:1fr 1fr} }
+    .kvs{display:grid; grid-template-columns:auto 1fr; gap:6px 12px; text-align:left; margin-top:10px}
+    .kvs div:nth-child(odd){color:#88a1d7}
+    .badge{display:inline-block; padding:2px 8px; border:1px solid #2a3a6c; border-radius:999px; color:#dfe9ff; background:#111a36}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="brand">
+      <img src="https://i.imgur.com/Z2VYAH4.png" alt="ATLAS logo" />
+      <span class="badge">ATLAS Development</span>
+    </div>
+    <div class="card grid">
+      <section>
+        <h1>404 · Not Found</h1>
+        <p>The resource you requested does not exist or has moved.</p>
+        <div class="actions">
+          <a class="btn primary" href="/" target="_top">Go home</a>
+          <a class="btn" href="" onclick="location.reload(); return false;">Retry</a>
+          <a class="btn" href="https://status.atlas.dev" target="_blank" rel="noopener">Status</a>
+          <a class="btn" href="https://discord.gg/kyVJyd7Xa2" target="_blank" rel="noopener">Support</a>
+        </div>
+      </section>
+      <section>
+        <h2 class="mono" style="margin:0 0 6px">Diagnostics</h2>
+        <div class="kvs mono">
+          <div>Request ID</div><div id="rid">…</div>
+          <div>Timestamp</div><div id="ts">…</div>
+          <div>Client</div><div id="ua">…</div>
+          <div>Path</div><div id="path">…</div>
+        </div>
+      </section>
+    </div>
+    <footer>© ATLAS Development • Secure licensing and telemetry</footer>
+  </main>
+  <script>
+    const rid = (crypto.randomUUID && crypto.randomUUID()) || ('RID-' + Math.random().toString(36).slice(2,10));
+    document.getElementById('rid').textContent = rid;
+    document.getElementById('ts').textContent = new Date().toISOString();
+    document.getElementById('ua').textContent = navigator.userAgent;
+    document.getElementById('path').textContent = location.pathname + location.search;
+  </script>
+</body>
+</html>
