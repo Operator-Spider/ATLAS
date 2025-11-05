@@ -7,7 +7,7 @@
   <link rel="icon" href="https://i.imgur.com/Z2VYAH4.png" />
   <meta name="color-scheme" content="dark light" />
   <style>
-    :root{--bg:#0b1020; --card:#0f162b; --text:#eaf1ff; --muted:#9fb3d9; --accent:#5aa3ff; --accent-2:#89d0ff; --border:#1c2747; --err:#ff6b6b}
+    :root{--bg:#0b1020; --card:#0f162b; --text:#eaf1ff; --muted:#9fb3d9; --accent:#5aa3ff; --accent-2:#89d0ff; --border:#1c2747}
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0; background:radial-gradient(1200px 800px at 80% -10%, #1a2446 0%, #0b1020 60%), var(--bg);
       color:var(--text); font:14px/1.5 system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif; display:grid; place-items:center; padding:24px}
@@ -23,7 +23,6 @@
     .btn{padding:10px 14px; border-radius:10px; border:1px solid var(--border); background:#121a33; color:var(--text); text-decoration:none}
     .btn:hover{border-color:#2b3c73}
     .btn.primary{background:linear-gradient(180deg, var(--accent), var(--accent-2)); color:#081122; font-weight:600; border:none}
-    .alert{margin-bottom:10px; color:#ffdede}
   </style>
 </head>
 <body>
@@ -33,14 +32,12 @@
       <strong>ATLAS Development</strong>
     </div>
     <div class="card">
-      <div class="alert mono">500 · Internal Server Error</div>
-      <h1>Something went wrong on our side</h1>
+      <h1>500 · Internal Server Error</h1>
       <p>We log these automatically. If this blocks you, open a ticket with the Request ID.</p>
       <div class="actions">
         <a class="btn primary" href="" onclick="location.reload(); return false;">Retry</a>
         <a class="btn" href="/" target="_top">Go home</a>
-        <a class="btn" href="https://status.atlas.dev" target="_blank" rel="noopener">Status</a>
-        <a class="btn" href="https://discord.gg/kyVJyd7Xa2" target="_blank" rel="noopener">Support</a>
+        <a class="btn" href="https://discord.gg/RnJdvYeudX" target="_blank" rel="noopener">Support</a>
       </div>
       <div class="mono" style="margin-top:16px">
         Request ID: <span id="rid">…</span> · <span id="ts">…</span>
