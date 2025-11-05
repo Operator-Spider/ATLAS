@@ -36,7 +36,7 @@
       <h1>502 · Upstream dependency failure</h1>
       <p>One of our external providers is not responding. We are retrying with backoff.</p>
       <div class="actions">
-        <button class="btn primary" type="button" onclick="location.reload()">Retry</button>
+  <button class="btn primary" type="button" onclick="try{top.location.reload()}catch(e){location.reload()}">Retry</button>
         <a class="btn" href="/" target="_top">Go home</a>
         <a class="btn" href="https://discord.gg/RnJdvYeudX" target="_blank" rel="noopener">Support</a>
       </div>

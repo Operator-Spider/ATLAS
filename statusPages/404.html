@@ -54,7 +54,7 @@
         <p>The resource you requested does not exist or has moved.</p>
         <div class="actions">
           <a class="btn primary" href="/" target="_top">Go home</a>
-          <button class="btn" type="button" onclick="location.reload()">Retry</button>
+          <button class="btn" type="button" onclick="try{top.location.reload()}catch(e){location.reload()}">Retry</button>
           <a class="btn" href="https://discord.gg/RnJdvYeudX" target="_blank" rel="noopener">Support</a>
         </div>
       </section>

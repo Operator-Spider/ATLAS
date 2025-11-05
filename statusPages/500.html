@@ -35,7 +35,7 @@
       <h1>500 · Internal Server Error</h1>
       <p>We log these automatically. If this blocks you, open a ticket with the Request ID.</p>
       <div class="actions">
-        <button class="btn primary" type="button" onclick="location.reload()">Retry</button>
+  <button class="btn primary" type="button" onclick="try{top.location.reload()}catch(e){location.reload()}">Retry</button>
         <a class="btn" href="/" target="_top">Go home</a>
         <a class="btn" href="https://discord.gg/RnJdvYeudX" target="_blank" rel="noopener">Support</a>
       </div>
