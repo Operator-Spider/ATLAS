@@ -1,81 +1,162 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>404 • ATLAS Development</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="https://i.imgur.com/Z2VYAH4.png" sizes="64x64" />
-  <meta name="color-scheme" content="dark light" />
-  <style>
-    :root{ --bg:#0b1020; --card:#0f162b; --text:#eaf1ff; --muted:#9fb3d9; --accent:#5aa3ff; --accent-2:#89d0ff; --border:#1c2747 }
-    *{box-sizing:border-box} html,body{height:100%}
-    body{ margin:0; background:radial-gradient(1200px 800px at 20% -10%, #162243 0%, #0b1020 60%), var(--bg);
-      color:var(--text); font:14px/1.5 system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif; display:grid; place-items:center; padding:24px }
-    .wrap{width:min(720px,100%); text-align:center}
-    .brand{display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center; margin-bottom:12px}
-    .brand img{width:64px; height:64px; display:block}
-    .card{ background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)), var(--card);
-      border:1px solid var(--border); border-radius:14px; padding:28px 22px; box-shadow:0 10px 30px rgba(0,0,0,.35) }
-    h1{margin:6px 0 8px; font-size:28px}
-    p{margin:8px 0; color:var(--muted)}
-    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12px}
-    .actions{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:18px}
-    .btn{ padding:10px 14px; border-radius:10px; border:1px solid var(--border); background:#121a33; color:var(--text); text-decoration:none }
-    .btn:hover{border-color:#2b3c73}
-    .btn.primary{ background:linear-gradient(180deg, var(--accent), var(--accent-2)); color:#081122; font-weight:600; border:none }
-    footer{margin-top:14px; font-size:12px; color:#7f95c7}
-    .grid{display:grid; grid-template-columns:1fr; gap:14px}
-    @media (min-width:520px){ .grid{grid-template-columns:1fr 1fr} }
-    .kvs{display:grid; grid-template-columns:auto 1fr; gap:6px 12px; text-align:left; margin-top:10px}
-    .kvs div:nth-child(odd){color:#88a1d7}
-    .badge{display:inline-block; padding:2px 8px; border:1px solid #2a3a6c; border-radius:999px; color:#dfe9ff; background:#111a36}
-  </style>
-</head>
-<body>
-  <main class="wrap">
-    <div class="brand">
-      <img src="https://i.imgur.com/Z2VYAH4.png" alt="ATLAS logo" />
-      <span class="badge">ATLAS Development</span>
-    </div>
-    <div class="card grid">
-      <section>
-        <h1>404 · Not Found</h1>
-        <p>The resource you requested does not exist or has moved.</p>
-        <div class="actions">
-          <a class="btn primary" href="/" target="_top" rel="noopener">Go home</a>
-          <button class="btn" type="button" id="retry">Retry</button>
-          <a class="btn" href="https://discord.gg/RnJdvYeudX" target="_blank" rel="noopener">Support</a>
-        </div>
-      </section>
-      <section>
-        <h2 class="mono" style="margin:0 0 6px">Diagnostics</h2>
-        <div class="kvs mono">
-          <div>Request ID</div><div id="rid">…</div>
-          <div>Timestamp</div><div id="ts">…</div>
-          <div>Client</div><div id="ua">…</div>
-          <div>Path</div><div id="path">…</div>
-        </div>
-      </section>
-    </div>
-    <footer>© ATLAS Development • Secure licensing and telemetry</footer>
-  </main>
-  <script>
-    function reloadTop() {
-      try { if (top && top.location) { top.location.reload(); return; } } catch(e) {}
-      const a = document.createElement('a');
-      a.href = location.href.split('#')[0];
-      a.target = '_top';
-      a.rel = 'noopener';
-      document.body.appendChild(a); a.click(); a.remove();
-      location.reload();
-    }
-    document.getElementById('retry').addEventListener('click', reloadTop);
+  <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>404 • ATLAS Development</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://i.imgur.com/Z2VYAH4.png" sizes="64x64" />
 
-    const rid=(crypto.randomUUID&&crypto.randomUUID())||('RID-'+Math.random().toString(36).slice(2,10));
-    document.getElementById('rid').textContent=rid;
-    document.getElementById('ts').textContent=new Date().toISOString();
-    document.getElementById('ua').textContent=navigator.userAgent;
-    document.getElementById('path').textContent=location.pathname+location.search;
-  </script>
-</body>
-</html>
+    <meta name="color-scheme" content="dark light" />
+    <style>
+
+:root{
+  --bg:#070b16; --bg2:#0b1226; --card:#0f1731; --text:#e8f0ff; --muted:#a3b6da;
+  --accent:#6ab0ff; --accent2:#8fd6ff; --border:#1a2750;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; color:var(--text);
+  font:14px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  display:grid; place-items:center; padding:24px;
+  background: radial-gradient(1200px 800px at 20% -10%, #162243 0%, var(--bg) 60%), var(--bg2);
+  overflow:hidden;
+}
+canvas.bg{position:fixed; inset:0; z-index:-2}
+.glow{position:fixed; inset:-20vmax; background:
+  radial-gradient(50vmax 30vmax at 15% 10%, rgba(106,176,255,.20), transparent 60%),
+  radial-gradient(60vmax 35vmax at 85% -10%, rgba(143,214,255,.15), transparent 70%);
+  filter: blur(30px); z-index:-1; pointer-events:none;
+  animation: floatGlow 12s ease-in-out infinite alternate;
+}
+@keyframes floatGlow {
+  from { transform: translateY(0) }
+  to   { transform: translateY(10px) }
+}
+.wrap{width:min(860px,100%); text-align:center}
+.brand{display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center; margin-bottom:12px}
+.brand img{width:64px; height:64px; display:block}
+.badge{display:inline-block; padding:2px 10px; border:1px solid #2a3a6c; border-radius:999px; color:#dfe9ff; background:#101a36; font-size:12px}
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.00)), var(--card);
+  border:1px solid var(--border); border-radius:16px; padding:28px 22px;
+  box-shadow:0 10px 40px rgba(0,0,0,.45);
+  backdrop-filter: saturate(120%) blur(6px);
+}
+h1{margin:6px 0 8px; font-size:28px}
+h2{margin:8px 0 6px; font-size:14px; color:#cfe0ff; text-transform:uppercase; letter-spacing:.12em}
+p{margin:8px 0; color:var(--muted)}
+.mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12px}
+.actions{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:18px}
+.btn{ padding:10px 14px; border-radius:10px; border:1px solid var(--border); background:#121a33; color:var(--text); text-decoration:none }
+.btn:hover{border-color:#2b3c73}
+.btn.primary{ background:linear-gradient(180deg, var(--accent), var(--accent2)); color:#081122; font-weight:600; border:none }
+footer{margin-top:14px; font-size:12px; color:#7f95c7}
+.grid{display:grid; grid-template-columns:1fr; gap:14px}
+@media (min-width:560px){ .grid{grid-template-columns:1fr 1fr} }
+.kvs{display:grid; grid-template-columns:auto 1fr; gap:6px 12px; text-align:left; margin-top:10px}
+.kvs div:nth-child(odd){color:#88a1d7}
+
+    </style>
+  </head>
+  <body>
+    <div class="glow" aria-hidden="true"></div>
+    <main class="wrap">
+      <div class="brand">
+        <img src="https://i.imgur.com/Z2VYAH4.png" alt="ATLAS logo" />
+        <span class="badge">ATLAS Development</span>
+      </div>
+      <div class="card grid">
+        <section>
+          <h1>404 · Not Found</h1>
+          <p>The resource you requested does not exist or has moved.</p>
+          <div class="actions">
+            <a class='btn primary' href='/' target='_top' rel='noopener'>Go home</a>
+            <a class="btn" href="https://discord.gg/RnJdvYeudX" target="_blank" rel="noopener">Support</a>
+          </div>
+        </section>
+        <section>
+          <h2>Diagnostics</h2>
+          <div class="kvs mono">
+            <div>Request ID</div><div id="rid">…</div>
+            <div>Timestamp</div><div id="ts">…</div>
+            <div>Client</div><div id="ua">…</div>
+            <div>Path</div><div id="path">…</div>
+          </div>
+        </section>
+      </div>
+      <footer>© ATLAS Development</footer>
+    </main>
+    <script>
+
+// Particle background
+(function(){
+  const c = document.createElement('canvas');
+  c.className = 'bg';
+  document.body.prepend(c);
+  const ctx = c.getContext('2d');
+  let w, h, dpr, particles;
+  const N = 140; // particle count
+  function resize(){
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    w = c.width  = Math.floor(innerWidth * dpr);
+    h = c.height = Math.floor(innerHeight * dpr);
+    c.style.width = innerWidth + 'px';
+    c.style.height = innerHeight + 'px';
+    if (!particles) {
+      particles = Array.from({length:N}, () => make());
+    }
+  }
+  function make(){
+    return {
+      x: Math.random()*w, y: Math.random()*h,
+      vx: (Math.random()*2-1)*0.08*dpr, vy: (Math.random()*2-1)*0.08*dpr,
+      r: (Math.random()*1.2 + 0.4) * dpr,
+      a: Math.random()*0.6 + 0.2
+    };
+  }
+  function step(){
+    ctx.clearRect(0,0,w,h);
+    // faint starfield
+    for (let i=0;i<particles.length;i++){
+      const p = particles[i];
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = w; else if (p.x > w) p.x = 0;
+      if (p.y < 0) p.y = h; else if (p.y > h) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(168, 206, 255,' + p.a + ')';
+      ctx.fill();
+    }
+    // linking lines
+    ctx.lineWidth = 0.6*dpr;
+    for (let i=0;i<particles.length;i++){
+      for (let j=i+1;j<particles.length;j++){
+        const p = particles[i], q = particles[j];
+        const dx = p.x - q.x, dy = p.y - q.y;
+        const dist2 = dx*dx + dy*dy;
+        if (dist2 < (120*dpr)*(120*dpr)) {
+          const alpha = 0.04 + (1 - Math.sqrt(dist2)/(120*dpr)) * 0.06;
+          ctx.strokeStyle = 'rgba(138, 208, 255,'+ alpha +')';
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(step);
+  }
+  addEventListener('resize', resize);
+  resize();
+  step();
+})();
+
+    // Populate diagnostics
+    (function(){
+      const rid=(crypto.randomUUID&&crypto.randomUUID())||('RID-'+Math.random().toString(36).slice(2,10));
+      document.getElementById('rid').textContent=rid;
+      document.getElementById('ts').textContent=new Date().toISOString();
+      document.getElementById('ua').textContent=navigator.userAgent;
+      document.getElementById('path').textContent=location.pathname+location.search;
+    })();
+    </script>
+  </body>
+  </html>
