@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>502 • Upstream Issue • ATLAS Development</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="https://i.imgur.com/Z2VYAH4.png" />
+  <meta name="color-scheme" content="dark light" />
+  <style>
+    :root{--bg:#0b1020; --card:#0f162b; --text:#eaf1ff; --muted:#9fb3d9; --accent:#5aa3ff; --accent-2:#89d0ff; --border:#1c2747}
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0; background:radial-gradient(1100px 700px at 10% -10%, #1a2549 0%, #0b1020 60%), var(--bg);
+      color:var(--text); font:14px/1.5 system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif; display:grid; place-items:center; padding:24px}
+    .wrap{width:min(720px,100%); text-align:center}
+    .brand{display:flex; gap:12px; align-items:center; justify-content:center; margin-bottom:12px}
+    .brand img{width:32px; height:32px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)), var(--card);
+      border:1px solid var(--border); border-radius:14px; padding:28px 22px; box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    h1{margin:6px 0 8px; font-size:26px}
+    p{margin:8px 0; color:var(--muted)}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12px}
+    .actions{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:18px}
+    .btn{padding:10px 14px; border-radius:10px; border:1px solid var(--border); background:#121a33; color:var(--text); text-decoration:none}
+    .btn:hover{border-color:#2b3c73}
+    .btn.primary{background:linear-gradient(180deg, var(--accent), var(--accent-2)); color:#081122; font-weight:600; border:none}
+    .note{margin-top:12px; color:#c6d6fb}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="brand">
+      <img src="https://i.imgur.com/Z2VYAH4.png" alt="ATLAS logo" />
+      <strong>ATLAS Development</strong>
+    </div>
+    <div class="card">
+      <h1>502 · Upstream dependency failure</h1>
+      <p>One of our external providers is not responding. We are retrying with backoff.</p>
+      <div class="actions">
+        <a class="btn primary" href="" onclick="location.reload(); return false;">Retry</a>
+        <a class="btn" href="https://status.atlas.dev" target="_blank" rel="noopener">Status</a>
+        <a class="btn" href="https://discord.gg/kyVJyd7Xa2" target="_blank" rel="noopener">Support</a>
+      </div>
+      <p class="note mono">Request ID: <span id="rid">…</span> · <span id="ts">…</span></p>
+    </div>
+  </main>
+  <script>
+    const rid=(crypto.randomUUID&&crypto.randomUUID())||('RID-'+Math.random().toString(36).slice(2,10));
+    document.getElementById('rid').textContent=rid;
+    document.getElementById('ts').textContent=new Date().toISOString();
+  </script>
+</body>
+</html>
