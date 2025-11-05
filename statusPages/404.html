@@ -10,10 +10,13 @@
     :root{ --bg:#0b1020; --card:#0f162b; --text:#eaf1ff; --muted:#9fb3d9; --accent:#5aa3ff; --accent-2:#89d0ff; --border:#1c2747 }
     *{box-sizing:border-box} html,body{height:100%}
     body{ margin:0; background:radial-gradient(1200px 800px at 20% -10%, #162243 0%, #0b1020 60%), var(--bg);
-      color:var(--text); font:14px/1.5 system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif; display:grid; place-items:center; padding:24px }
-    .wrap{width:min(720px,100%); text-align:center}
+      color:var(--text); font:14px/1.5 system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif; display:grid; place-items:center; padding:24px; overflow:hidden }
+    .bg{position:fixed; inset:0; z-index:-1}
+    .wrap{width:min(720px,100%); text-align:center; animation:fade 600ms ease-out}
+    @keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
     .brand{display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center; margin-bottom:12px}
-    .brand img{width:64px; height:64px; display:block}
+    .brand img{width:64px; height:64px; display:block; filter:drop-shadow(0 6px 16px rgba(0,0,0,.35)); animation:float 6s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)}}
     .card{ background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)), var(--card);
       border:1px solid var(--border); border-radius:14px; padding:28px 22px; box-shadow:0 10px 30px rgba(0,0,0,.35) }
     h1{margin:6px 0 8px; font-size:28px}
@@ -29,9 +32,11 @@
     .kvs{display:grid; grid-template-columns:auto 1fr; gap:6px 12px; text-align:left; margin-top:10px}
     .kvs div:nth-child(odd){color:#88a1d7}
     .badge{display:inline-block; padding:2px 8px; border:1px solid #2a3a6c; border-radius:999px; color:#dfe9ff; background:#111a36}
+    @media (prefers-reduced-motion:reduce){ .brand img{animation:none} .wrap{animation:none} }
   </style>
 </head>
 <body>
+  <canvas class="bg" id="bg" aria-hidden="true"></canvas>
   <main class="wrap">
     <div class="brand">
       <img src="https://i.imgur.com/Z2VYAH4.png" alt="ATLAS logo" />
@@ -43,7 +48,6 @@
         <p>The resource you requested does not exist or has moved.</p>
         <div class="actions">
           <a class="btn primary" href="/" target="_top" rel="noopener">Go home</a>
-          <button class="btn" type="button" id="retry">Retry</button>
           <a class="btn" href="https://discord.gg/RnJdvYeudX" target="_blank" rel="noopener">Support</a>
         </div>
       </section>
@@ -60,17 +64,51 @@
     <footer>© ATLAS Development • Secure licensing and telemetry</footer>
   </main>
   <script>
-    function reloadTop() {
-      try { if (top && top.location) { top.location.reload(); return; } } catch(e) {}
-      const a = document.createElement('a');
-      a.href = location.href.split('#')[0];
-      a.target = '_top';
-      a.rel = 'noopener';
-      document.body.appendChild(a); a.click(); a.remove();
-      location.reload();
-    }
-    document.getElementById('retry').addEventListener('click', reloadTop);
+    // Particles
+    (function(){
+      const m = matchMedia('(prefers-reduced-motion: reduce)');
+      if (m.matches) return;
+      const c = document.getElementById('bg');
+      const ctx = c.getContext('2d');
+      let dpr = Math.max(1, Math.min(2, devicePixelRatio||1));
+      let W, H, P=[], N=90; // particle count
+      function rs(){ W=innerWidth; H=innerHeight; c.width=W*dpr; c.height=H*dpr; c.style.width=W+'px'; c.style.height=H+'px'; ctx.setTransform(dpr,0,0,dpr,0,0); }
+      function init(){
+        P = Array.from({length:N},()=>({
+          x:Math.random()*W, y:Math.random()*H,
+          vx:(Math.random()-.5)*0.4, vy:(Math.random()-.5)*0.4,
+          r:1.2+Math.random()*2.2, o:0.2+Math.random()*0.6
+        }));
+      }
+      function step(){
+        ctx.clearRect(0,0,W,H);
+        // connections
+        for(let i=0;i<N;i++){
+          for(let j=i+1;j<N;j++){
+            const a=P[i], b=P[j];
+            const dx=a.x-b.x, dy=a.y-b.y, dist=dx*dx+dy*dy;
+            if(dist<85*85){
+              const alpha=0.06*(1-dist/(85*85));
+              ctx.strokeStyle=`rgba(137,208,255,${alpha})`;
+              ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+            }
+          }
+        }
+        // points
+        for(const p of P){
+          p.x+=p.vx; p.y+=p.vy;
+          if(p.x<0||p.x>W) p.vx*=-1;
+          if(p.y<0||p.y>H) p.vy*=-1;
+          ctx.fillStyle=`rgba(90,163,255,${p.o})`;
+          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+        }
+        requestAnimationFrame(step);
+      }
+      addEventListener('resize', ()=>{rs(); init();});
+      rs(); init(); step();
+    })();
 
+    // Diagnostics
     const rid=(crypto.randomUUID&&crypto.randomUUID())||('RID-'+Math.random().toString(36).slice(2,10));
     document.getElementById('rid').textContent=rid;
     document.getElementById('ts').textContent=new Date().toISOString();

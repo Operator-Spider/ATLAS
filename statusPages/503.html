@@ -11,23 +11,28 @@
     :root{--bg:#0b1020; --card:#0f162b; --text:#eaf1ff; --muted:#9fb3d9; --accent:#5aa3ff; --accent-2:#89d0ff; --border:#1c2747}
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0; background:radial-gradient(900px 600px at 50% -10%, #162243 0%, #0b1020 60%), var(--bg);
-      color:var(--text); font:14px/1.5 system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif; display:grid; place-items:center; padding:24px}
-    .wrap{width:min(720px,100%); text-align:center}
+      color:var(--text); font:14px/1.5 system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif; display:grid; place-items:center; padding:24px; overflow:hidden}
+    .bg{position:fixed; inset:0; z-index:-1}
+    .wrap{width:min(720px,100%); text-align:center; animation:fade 600ms ease-out}
+    @keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
     .brand{display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center; margin-bottom:12px}
-    .brand img{width:64px; height:64px; display:block}
+    .brand img{width:64px; height:64px; display:block; filter:drop-shadow(0 6px 16px rgba(0,0,0,.35)); animation:float 6s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)}}
     .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)), var(--card);
       border:1px solid var(--border); border-radius:14px; padding:28px 22px; box-shadow:0 10px 30px rgba(0,0,0,.35)}
     h1{margin:6px 0 8px; font-size:26px}
     p{margin:8px 0; color:#9fb3d9}
     .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12px}
     .actions{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:18px}
-    .btn{padding:10px 14px; border-radius:10px; border:1px solid var(--border); background:#121a33; color:var(--text); text-decoration:none}
+    .btn{padding:10px 14px; border-radius:10px; border:1px solid var(--border); background:#121a33; color:#eaf1ff; text-decoration:none}
     .btn:hover{border-color:#2b3c73}
     .btn.primary{background:linear-gradient(180deg, var(--accent), var(--accent-2)); color:#081122; font-weight:600; border:none}
     .eta{margin-top:10px; color:#b7c9ef}
+    @media (prefers-reduced-motion:reduce){ .brand img{animation:none} .wrap{animation:none} }
   </style>
 </head>
 <body>
+  <canvas class="bg" id="bg" aria-hidden="true"></canvas>
   <main class="wrap">
     <div class="brand">
       <img src="https://i.imgur.com/Z2VYAH4.png" alt="ATLAS logo" />
@@ -36,6 +41,39 @@
     <div class="card">
       <h1>503 · Scheduled Maintenance</h1>
       <p>We are performing upgrades. Most requests are unavailable during this window.</p>
-      <p class="eta mono">Auto-refresh in 60s • Started: <span id="start">…</span></p>
+      <p class="eta mono">Auto-refresh in <span id="cd">60</span>s • Started: <span id="start">…</span></p>
       <div class="actions">
-        <button class="btn primary" type="button" id="retry">Re
+        <a class="btn primary" href="/" target="_top" rel="noopener">Go home</a>
+        <a class="btn" href="https://discord.gg/RnJdvYeudX" target="_blank" rel="noopener">Support</a>
+      </div>
+    </div>
+  </main>
+  <script>
+    // Particles
+    (function(){
+      const m = matchMedia('(prefers-reduced-motion: reduce)');
+      if (m.matches) return;
+      const c = document.getElementById('bg');
+      const ctx = c.getContext('2d');
+      let dpr = Math.max(1, Math.min(2, devicePixelRatio||1));
+      let W, H, P=[], N=90;
+      function rs(){ W=innerWidth; H=innerHeight; c.width=W*dpr; c.height=H*dpr; c.style.width=W+'px'; c.style.height=H+'px'; ctx.setTransform(dpr,0,0,dpr,0,0); }
+      function init(){ P = Array.from({length:N},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*0.4,vy:(Math.random()-.5)*0.4,r:1.2+Math.random()*2.2,o:0.2+Math.random()*0.6})); }
+      function step(){
+        ctx.clearRect(0,0,W,H);
+        for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){const a=P[i],b=P[j],dx=a.x-b.x,dy=a.y-b.y,d=dx*dx+dy*dy;if(d<85*85){const al=0.06*(1-d/(85*85));ctx.strokeStyle=`rgba(137,208,255,${al})`;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}
+        for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;ctx.fillStyle=`rgba(90,163,255,${p.o})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}
+        requestAnimationFrame(step);
+      }
+      addEventListener('resize', ()=>{rs(); init();});
+      rs(); init(); step();
+    })();
+
+    // Countdown + diagnostics
+    const cd = document.getElementById('cd');
+    let s = 60; cd.textContent = s;
+    setInterval(()=>{ s = Math.max(0, s-1); cd.textContent = s; },1000);
+    document.getElementById('start').textContent=new Date().toISOString();
+  </script>
+</body>
+</html>
