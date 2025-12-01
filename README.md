@@ -15,12 +15,5 @@ Since our last Alpha version, some of you might have noticed a rebranding and up
 - New product delivery system with a state-of-the-art product whitelist setup!
 - Updated Discord bot with better user interface.
 
-## Full Release Notes :gear: 
-- Overhauled web interface with status info about our internal and external services, with a product hub quick launch
-- Started work on a web-based store.
-- Brand New Product Center UI!
-- New product delivery system with a state-of-the-art product whitelist setup. This system allows users to auto-register their products with the studio command line.
-- Updated Discord bot with better user interface.
-
 <img width="1536" height="1024" alt="BANNERCROPPED" src="https://github.com/user-attachments/assets/4d0c0c69-a26e-494a-8ad0-10799fa551af" />
 
