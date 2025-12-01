@@ -1,4 +1,4 @@
-# Version 3.0 — Official Public Release 🎉
+# Version 3.0 — Development Notes
 
 ## TL;DR 📋
 After over a year of careful development, ATLAS Development proudly announces Version 3 of our product hub. V3 refines the seller–buyer workflow, improves delivery and security, and provides a faster, more reliable web experience for customers and internal teams. This official public release is polished, stable, and ready for broader use.
