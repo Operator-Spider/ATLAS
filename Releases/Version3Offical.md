@@ -10,6 +10,7 @@ After over a year of careful development, ATLAS Development proudly announces Ve
 - Full API and audit logging for staff — easier troubleshooting and safer internal operations without exposing sensitive data publicly.
 - Performance and uptime improvements — edge routing and caching optimizations to reduce latency and handle higher traffic.
 - Better metrics and monitoring — visibility into usage, delivery success rates, and service health for proactive maintenance.
+- Dedicated Domain (atlas-development-services.operator-spider.com -> atlas-development.net)
 
 
 ## Release notes (short) ⚙️
