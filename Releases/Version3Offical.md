@@ -38,7 +38,7 @@ Security and keys: We moved away from relying solely on third-party game platfor
 - Ongoing improvements: additional automation for fraud detection, expanded analytics, and more developer-facing tooling.
 
 ## Links & resources 🔗
-- Public site: https://atlas-development-services.operator-spider.com/ — status and public metrics.
+- Public site: https://atlas-development.net/ — status and public metrics.
 
 
 
