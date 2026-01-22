@@ -15,5 +15,8 @@ Since our last Alpha version, some of you might have noticed a rebranding and up
 - New product delivery system with a state-of-the-art product whitelist setup!
 - Updated Discord bot with better user interface.
 
+
+## Full Release notes [here.](https://atlas-development.net/version/V3)
+
 <img width="1536" height="1024" alt="BANNERCROPPED" src="https://github.com/user-attachments/assets/4d0c0c69-a26e-494a-8ad0-10799fa551af" />
 
