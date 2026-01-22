@@ -1,4 +1,4 @@
-# Version 3.0 Official Public Release :confetti_ball: 
+# Version 3.0 Official Beta Release :confetti_ball: 
 <img width="300" height="300" alt="3ede5b5c-900d-4aed-9ffd-1ebe66e4a6f2" src="https://github.com/user-attachments/assets/87fd5fcd-bb23-4ae7-80e3-488f166da9df" />
 
 ## Summary :clipboard: 
