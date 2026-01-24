@@ -162,7 +162,7 @@ local function buildUI(sg: ScreenGui)
 	title.TextSize = 20
 	title.TextXAlignment = Enum.TextXAlignment.Left
 	title.TextColor3 = Color3.fromRGB(255, 255, 255)
-	title.Text = "ATLAS Error"
+	title.Text = "ATLAS Error Helper"
 	title.TextTransparency = 1
 	title.Parent = card
 
