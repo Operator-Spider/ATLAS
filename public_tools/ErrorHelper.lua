@@ -12,6 +12,8 @@ local ContextActionService = game:GetService("ContextActionService")
 local player = Players.LocalPlayer
 
 local REMOTE_NAME = "ATLAS_ERROR_HANDLER"
+local ACCENT_COLOR = Color3.fromRGB(255, 104, 122)
+local LOGO_ASSET_ID = "rbxassetid://85889182161641"
 
 -- ---------- UI helpers ----------
 local function tween(obj: Instance, info: TweenInfo, props: {[string]: any})
@@ -131,7 +133,7 @@ local function buildUI(sg: ScreenGui)
 	card.AnchorPoint = Vector2.new(0.5, 0.5)
 	card.Position = UDim2.fromScale(0.5, 1.2) -- start off-screen for slide-up
 	card.Size = UDim2.fromOffset(640, 420)
-	card.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
+	card.BackgroundColor3 = Color3.fromRGB(16, 16, 22)
 	card.BackgroundTransparency = 1
 	card.BorderSizePixel = 0
 	card.Parent = overlay
@@ -143,7 +145,7 @@ local function buildUI(sg: ScreenGui)
 	local stroke = Instance.new("UIStroke")
 	stroke.Thickness = 1
 	stroke.Transparency = 1
-	stroke.Color = Color3.fromRGB(255, 255, 255)
+	stroke.Color = ACCENT_COLOR
 	stroke.Parent = card
 
 	local pad = Instance.new("UIPadding")
@@ -157,14 +159,29 @@ local function buildUI(sg: ScreenGui)
 	local title = Instance.new("TextLabel")
 	title.Name = "Title"
 	title.BackgroundTransparency = 1
-	title.Size = UDim2.new(1, 0, 0, 34)
+	title.Size = UDim2.new(1, -72, 0, 34)
 	title.Font = Enum.Font.GothamBold
 	title.TextSize = 20
 	title.TextXAlignment = Enum.TextXAlignment.Left
-	title.TextColor3 = Color3.fromRGB(255, 255, 255)
-	title.Text = "ATLAS Error Helper"
+	title.TextColor3 = ACCENT_COLOR
+	title.Text = "ATLAS Error"
 	title.TextTransparency = 1
 	title.Parent = card
+
+	local logo = Instance.new("ImageLabel")
+	logo.Name = "Logo"
+	logo.AnchorPoint = Vector2.new(1, 0)
+	logo.BackgroundTransparency = 1
+	logo.Position = UDim2.new(1, -12, 0, -8)
+	logo.Size = UDim2.fromOffset(48, 48)
+	logo.Image = LOGO_ASSET_ID
+	logo.ImageColor3 = Color3.fromRGB(255, 255, 255)
+	logo.ImageTransparency = 1
+	logo.Parent = card
+
+	local logoCorner = Instance.new("UICorner")
+	logoCorner.CornerRadius = UDim.new(1, 0)
+	logoCorner.Parent = logo
 
 	local subtitle = Instance.new("TextLabel")
 	subtitle.Name = "Subtitle"
@@ -174,7 +191,7 @@ local function buildUI(sg: ScreenGui)
 	subtitle.Font = Enum.Font.Gotham
 	subtitle.TextSize = 14
 	subtitle.TextXAlignment = Enum.TextXAlignment.Left
-	subtitle.TextColor3 = Color3.fromRGB(200, 200, 210)
+	subtitle.TextColor3 = Color3.fromRGB(222, 222, 230)
 	subtitle.Text = "A licensing/whitelist error was reported by the server."
 	subtitle.TextTransparency = 1
 	subtitle.Parent = card
@@ -187,7 +204,7 @@ local function buildUI(sg: ScreenGui)
 	counter.Font = Enum.Font.GothamMedium
 	counter.TextSize = 14
 	counter.TextXAlignment = Enum.TextXAlignment.Left
-	counter.TextColor3 = Color3.fromRGB(210, 210, 220)
+	counter.TextColor3 = ACCENT_COLOR
 	counter.Text = "Number of Product Issues: 0"
 	counter.TextTransparency = 1
 	counter.Parent = card
@@ -207,6 +224,7 @@ local function buildUI(sg: ScreenGui)
 	spinner.Position = UDim2.fromOffset(0, 7)
 	-- Built-in Roblox asset; if it ever fails, it just won't show but script still works.
 	spinner.Image = "rbxassetid://6031094678" -- circular spinner-ish icon
+	spinner.ImageColor3 = ACCENT_COLOR
 	spinner.ImageTransparency = 1
 	spinner.Parent = loadingRow
 
@@ -218,7 +236,7 @@ local function buildUI(sg: ScreenGui)
 	loadingText.Font = Enum.Font.GothamMedium
 	loadingText.TextSize = 14
 	loadingText.TextXAlignment = Enum.TextXAlignment.Left
-	loadingText.TextColor3 = Color3.fromRGB(220, 220, 230)
+	loadingText.TextColor3 = ACCENT_COLOR
 	loadingText.Text = "Preparing report…"
 	loadingText.TextTransparency = 1
 	loadingText.Parent = loadingRow
@@ -226,7 +244,7 @@ local function buildUI(sg: ScreenGui)
 	-- Body / list area
 	local body = Instance.new("Frame")
 	body.Name = "Body"
-	body.BackgroundColor3 = Color3.fromRGB(12, 12, 16)
+	body.BackgroundColor3 = Color3.fromRGB(14, 14, 20)
 	body.BorderSizePixel = 0
 	body.Position = UDim2.new(0, 0, 0, 124)
 	body.Size = UDim2.new(1, 0, 1, -190)
@@ -240,7 +258,7 @@ local function buildUI(sg: ScreenGui)
 	local bodyStroke = Instance.new("UIStroke")
 	bodyStroke.Thickness = 1
 	bodyStroke.Transparency = 1
-	bodyStroke.Color = Color3.fromRGB(255, 255, 255)
+	bodyStroke.Color = ACCENT_COLOR
 	bodyStroke.Parent = body
 
 	local bodyPad = Instance.new("UIPadding")
@@ -258,6 +276,7 @@ local function buildUI(sg: ScreenGui)
 	scroller.CanvasSize = UDim2.new(0, 0, 0, 0)
 	scroller.ScrollBarThickness = 6
 	scroller.AutomaticCanvasSize = Enum.AutomaticSize.Y
+	scroller.ScrollBarImageColor3 = ACCENT_COLOR
 	scroller.Parent = body
 
 	local list = Instance.new("UIListLayout")
@@ -290,11 +309,11 @@ local function buildUI(sg: ScreenGui)
 		local b = Instance.new("TextButton")
 		b.AutoButtonColor = false
 		b.Size = UDim2.fromOffset(140, 36)
-		b.BackgroundColor3 = Color3.fromRGB(28, 28, 34)
+		b.BackgroundColor3 = Color3.fromRGB(30, 26, 34)
 		b.BorderSizePixel = 0
 		b.Font = Enum.Font.GothamSemibold
 		b.TextSize = 14
-		b.TextColor3 = Color3.fromRGB(255, 255, 255)
+		b.TextColor3 = ACCENT_COLOR
 		b.Text = text
 		b.BackgroundTransparency = 1
 		b.TextTransparency = 1
@@ -306,7 +325,7 @@ local function buildUI(sg: ScreenGui)
 		local s = Instance.new("UIStroke")
 		s.Thickness = 1
 		s.Transparency = 0.35
-		s.Color = Color3.fromRGB(255, 255, 255)
+		s.Color = ACCENT_COLOR
 		s.Parent = b
 
 		return b
@@ -330,6 +349,7 @@ local function buildUI(sg: ScreenGui)
 		Scroller = scroller,
 		CloseButton = closeBtn,
 		CardStroke = stroke,
+		Logo = logo,
 		_bound = false,
 	}
 end
@@ -481,7 +501,7 @@ local function addErrorCard(refs, text: string, index: number)
 	local stroke = Instance.new("UIStroke")
 	stroke.Thickness = 1
 	stroke.Transparency = 0.25
-	stroke.Color = Color3.fromRGB(255, 255, 255)
+	stroke.Color = ACCENT_COLOR
 	stroke.Parent = card
 
 	local pad = Instance.new("UIPadding")
@@ -512,7 +532,7 @@ local function addErrorCard(refs, text: string, index: number)
 	title.Font = Enum.Font.GothamSemibold
 	title.TextSize = 15
 	title.TextXAlignment = Enum.TextXAlignment.Left
-	title.TextColor3 = Color3.fromRGB(255, 255, 255)
+	title.TextColor3 = ACCENT_COLOR
 	title.Text = ("Error #%d"):format(index)
 	title.LayoutOrder = 1
 	title.Parent = header
@@ -528,7 +548,7 @@ local function addErrorCard(refs, text: string, index: number)
 	textBox.TextYAlignment = Enum.TextYAlignment.Top
 	textBox.Font = Enum.Font.Code
 	textBox.TextSize = 14
-	textBox.TextColor3 = Color3.fromRGB(235, 235, 240)
+	textBox.TextColor3 = Color3.fromRGB(240, 240, 248)
 	textBox.Text = text
 	textBox.TextTransparency = 1
 	textBox.AutomaticSize = Enum.AutomaticSize.Y
@@ -540,11 +560,11 @@ local function addErrorCard(refs, text: string, index: number)
 	selectBtn.Name = "Select"
 	selectBtn.AutoButtonColor = false
 	selectBtn.Size = UDim2.fromOffset(120, 30)
-	selectBtn.BackgroundColor3 = Color3.fromRGB(28, 28, 34)
+	selectBtn.BackgroundColor3 = Color3.fromRGB(36, 28, 36)
 	selectBtn.BorderSizePixel = 0
 	selectBtn.Font = Enum.Font.GothamSemibold
 	selectBtn.TextSize = 14
-	selectBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	selectBtn.TextColor3 = ACCENT_COLOR
 	selectBtn.Text = "Select"
 	selectBtn.BackgroundTransparency = 1
 	selectBtn.TextTransparency = 1
@@ -558,14 +578,14 @@ local function addErrorCard(refs, text: string, index: number)
 	local ss = Instance.new("UIStroke")
 	ss.Thickness = 1
 	ss.Transparency = 0.35
-	ss.Color = Color3.fromRGB(255, 255, 255)
+	ss.Color = ACCENT_COLOR
 	ss.Parent = selectBtn
 
 	local function hover(btn: TextButton, over: boolean)
 		if over then
-			tween(btn, TweenInfo.new(0.12), {BackgroundColor3 = Color3.fromRGB(36, 36, 44)})
+			tween(btn, TweenInfo.new(0.12), {BackgroundColor3 = Color3.fromRGB(54, 40, 54)})
 		else
-			tween(btn, TweenInfo.new(0.12), {BackgroundColor3 = Color3.fromRGB(28, 28, 34)})
+			tween(btn, TweenInfo.new(0.12), {BackgroundColor3 = Color3.fromRGB(36, 28, 36)})
 		end
 	end
 
@@ -607,6 +627,7 @@ local function showError(message: any, data: any)
 	r.Title.TextTransparency = 1
 	r.Subtitle.TextTransparency = 1
 	r.Counter.TextTransparency = 1
+	r.Logo.ImageTransparency = 1
 	r.Body.BackgroundTransparency = 1
 	r.BodyStroke.Transparency = 1
 	r.Spinner.ImageTransparency = 1
@@ -642,9 +663,10 @@ local function showError(message: any, data: any)
 	tween(r.Overlay, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0.35})
 	tween(r.Card, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0, Position = UDim2.fromScale(0.5, 0.5)})
 	tween(r.CardStroke, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 0.15})
-	tween(r.Title, TweenInfo.new(0.18), {TextTransparency = 0})
-	tween(r.Subtitle, TweenInfo.new(0.18), {TextTransparency = 0})
-	tween(r.Counter, TweenInfo.new(0.18), {TextTransparency = 0})
+		tween(r.Title, TweenInfo.new(0.18), {TextTransparency = 0})
+		tween(r.Subtitle, TweenInfo.new(0.18), {TextTransparency = 0})
+		tween(r.Counter, TweenInfo.new(0.18), {TextTransparency = 0})
+		tween(r.Logo, TweenInfo.new(0.18), {ImageTransparency = 0})
 
 	-- Loading reveal
 	r.LoadingText.Text = "Preparing report…"
@@ -674,9 +696,9 @@ local function showError(message: any, data: any)
 
 		local function hover(btn: TextButton, over: boolean)
 			if over then
-				tween(btn, TweenInfo.new(0.12), {BackgroundColor3 = Color3.fromRGB(36, 36, 44)})
+				tween(btn, TweenInfo.new(0.12), {BackgroundColor3 = Color3.fromRGB(54, 40, 54)})
 			else
-				tween(btn, TweenInfo.new(0.12), {BackgroundColor3 = Color3.fromRGB(28, 28, 34)})
+				tween(btn, TweenInfo.new(0.12), {BackgroundColor3 = Color3.fromRGB(30, 26, 34)})
 			end
 		end
 
