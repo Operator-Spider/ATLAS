@@ -40,7 +40,7 @@ After over a year of careful development, ATLAS Development proudly announces Ve
 - Developers / Staff: richer API logs, better debugging views, and safer internal tools for investigating issues without leaking customer data.
 
 ## Known limitations & roadmap 🛣️
-- Payment storefronts (real-currency purchases) are planned but not live.
+- Payment storefronts (real-currency purchases) are planned for V4 or even 5 due to the complexity of both the security AND tax codes.
 - Ongoing improvements: additional automation for fraud detection, expanded analytics, and more developer-facing tooling.
 
 ## Links & resources 🔗
