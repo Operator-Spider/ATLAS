@@ -21,6 +21,16 @@ After over a year of careful development, ATLAS Development proudly announces Ve
 - Dedicated Domain (atlas-development-services.operator-spider.com -> atlas-development.net)
 - New 2FA support (One time Code & Passkeys) (Enforced for Admins)
 - Infrastructure: Edge routing and caching (via a CDN) are used to lower latency and smooth traffic spikes. Backend services were tuned to improve response times and enhance error visibility.
+- Subresource Integrity (SRI) enforcement added for external scripts and styles
+- TOTP and authentication hardening fixes
+- Safer string formatting and input sanitization to prevent injection issues
+- Non-literal regular expression handling tightened
+- Express response handling hardened to reduce XSS risk
+- CORS configuration explicitly locked down
+- Path traversal protections added around file path resolution
+- Weak cryptographic algorithms replaced with modern primitives
+- CSRF protection middleware validated and enforced
+
 
 
 
