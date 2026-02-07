@@ -30,6 +30,7 @@ After over a year of careful development, ATLAS Development proudly announces Ve
 - Path traversal protections added around file path resolution
 - Weak cryptographic algorithms replaced with modern primitives
 - CSRF protection middleware validated and enforced
+- Added oAuth signin, and linking.
 
 
 
